@@ -1,25 +1,22 @@
-import { useRef, useSignal } from "kiru"
+import { ref, signal } from "kiru"
 import { Head } from "kiru/router"
 
 export default function Page() {
-  const count = useSignal(0)
-  const countRef = useRef<HTMLDivElement>(null)
-  const animRef = useRef<Animation>()
+  const count = signal(0)
+  const countRef = ref<HTMLDivElement>(null)
+  let animation: Animation | undefined
 
   const handleClick = () => {
     count.value++
 
-    animRef.current?.finish()
-    animRef.current = countRef.current?.animate(
+    animation?.finish()
+    animation = countRef.current?.animate(
       [{ transform: "scale(2.5)" }, { transform: "scale(1)" }],
-      {
-        duration: 300,
-        iterations: 1,
-      }
+      { duration: 300, iterations: 1 }
     )
   }
 
-  return (
+  return () => (
     <>
       <Head.Content>
         <title>Vite + TS + Kiru</title>

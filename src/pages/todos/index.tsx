@@ -1,4 +1,4 @@
-import { Derive, signal, useComputed, useSignal } from "kiru"
+import { Derive, signal, computed } from "kiru"
 import { Head } from "kiru/router"
 import { className as cls } from "kiru/utils"
 
@@ -14,8 +14,8 @@ function updateTodo(todo: Todo) {
 }
 
 export default function TodosPage() {
-  const inputText = useSignal("")
-  const disableSubmit = useComputed(() => !inputText.value.trim())
+  const inputText = signal("")
+  const disableSubmit = computed(() => !inputText.value.trim())
 
   const handleAddTodo = () => {
     if (disableSubmit.value) return
@@ -26,7 +26,7 @@ export default function TodosPage() {
     inputText.value = ""
   }
 
-  return (
+  return () => (
     <>
       <Head.Content>
         <title>Todos</title>
