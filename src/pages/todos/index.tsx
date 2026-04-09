@@ -1,4 +1,4 @@
-import { Derive, signal, computed } from "kiru"
+import { Derive, signal, computed, For } from "kiru"
 import { Head } from "kiru/router"
 import { className as cls } from "kiru/utils"
 
@@ -49,18 +49,11 @@ export default function TodosPage() {
             </button>
           </div>
         </form>
-        <div>
-          <Derive from={todos}>
-            {(todos) => (
-              <ul className="text-xl flex flex-col gap-2">
-                {todos.length === 0 && <i>No todos</i>}
-                {todos.map((todo) => (
-                  <TodoItem key={todo.id} todo={todo} />
-                ))}
-              </ul>
-            )}
-          </Derive>
-        </div>
+        <ul className="text-xl flex flex-col gap-2">
+          <For each={todos} fallback={<i>No todos</i>}>
+            {(todo) => <TodoItem key={todo.id} todo={todo} />}
+          </For>
+        </ul>
       </div>
     </>
   )
