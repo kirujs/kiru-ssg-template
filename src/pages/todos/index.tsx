@@ -49,7 +49,7 @@ export default function TodosPage() {
             </button>
           </div>
         </form>
-        <ul className="text-xl flex flex-col gap-2">
+        <ul className="text-xl flex flex-col gap-2" data-changed>
           <For each={todos} fallback={<i>No todos</i>}>
             {(todo) => <TodoItem key={todo.id} todo={todo} />}
           </For>
